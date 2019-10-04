@@ -30,9 +30,10 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date'], 'safe'],
-            [['user_id'], 'integer'],
-            [['title', 'content', 'author'], 'string', 'max' => 255],
+             [['title'], 'required',],
+             [['date'], 'date', 'format'=>'php:Y-m-d'], 
+             [['date'], 'default', 'value'=>date('Y-m-d')],
+             [['title'],'string', 'max'=>255],
         ];
     }
 

@@ -54,6 +54,10 @@ class SiteController extends Controller
         ];
     }
 
+
+    public function actionSingle(){
+        return $this->render('single');
+    }
     /**
      * Displays homepage.
      *
