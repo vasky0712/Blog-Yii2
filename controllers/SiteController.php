@@ -9,8 +9,12 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Article;
+use yii\data\Pagination;
+use app\models\ArticlesSearch;
+use app\controllers\AppController;
 
-class SiteController extends Controller
+class SiteController extends AppController
 {
     /**
      * {@inheritdoc}
@@ -64,8 +68,14 @@ class SiteController extends Controller
      * @return string
      */
     public function actionIndex()
-    {
-        return $this->render('index');
+    {;
+       //$posts= Article::find()->select('id, title, content')->all();
+       $query = Article::find()->select('id, title, content');
+        $pages = new \yii\data\Pagination(['totalCount'=>$query->count(), 'pageSize'=> 5]);
+        $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
+
+       return $this->render('index', compact('posts', 'pages'));
+       $this->debug($posts);
     }
 
     /**
